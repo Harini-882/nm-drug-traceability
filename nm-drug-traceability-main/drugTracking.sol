@@ -13,14 +13,14 @@ contract Drug{
         _;
     }
 
-    struct Drug {
+    struct DrugDetails {
         string drugName;
         string manufacturer;
         uint256 manufacturingDate;
         address trackingHistory;
     }
 
-    mapping(uint256 => Drug) public drugs;
+    mapping(uint256 => DrugDetails) public drugs;
     uint256 public drugCount;
 
     event DrugManufactured(uint256 indexed drugId, string drugName, string manufacturer, uint256 manufacturingDate);
@@ -31,7 +31,7 @@ contract Drug{
         address initialHistory;
         initialHistory = owner;
 
-        drugs[drugId] = Drug(_drugName, _manufacturer, _manufacturingDate, initialHistory);
+        drugs[drugId] = DrugDetails(_drugName, _manufacturer, _manufacturingDate, initialHistory);
         drugCount++;
 
         emit DrugManufactured(drugId, _drugName, _manufacturer, _manufacturingDate);
@@ -49,7 +49,7 @@ contract Drug{
 
     function getDrugDetails(uint256 _drugId) external view returns (string memory, string memory, uint256, address) {
     
-        Drug memory drug = drugs[_drugId];
+        DrugDetails memory drug = drugs[_drugId];
         return (drug.drugName, drug.manufacturer, drug.manufacturingDate, drug.trackingHistory);
     }
 }
